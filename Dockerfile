@@ -9,7 +9,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV PATH /composer/vendor/bin:$PATH
 ENV PHP_CONF_DIR=/usr/local/etc/php/conf.d
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 RUN apk add --no-cache \ 
     $PHPIZE_DEPS \
@@ -29,7 +29,7 @@ RUN echo "memory_limit=-1" > $PHP_CONF_DIR/99_memory-limit.ini \
     && apk add git \
     && rm -rf /var/cache/apk/* /var/tmp/* /tmp/*
 
-RUN composer global require phpunit/phpunit:^9.3
+RUN composer global require phpunit/phpunit:^9.5
 
 VOLUME ["/code"]
 WORKDIR /code
